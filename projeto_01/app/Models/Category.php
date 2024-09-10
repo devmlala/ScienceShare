@@ -25,8 +25,9 @@ class Category extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function materials()
-    {
-        return $this->hasMany(Material::class);
+    
+
+    public function subcategories(){
+        return $this->hasMany(Subcategory::class);
     }
 }

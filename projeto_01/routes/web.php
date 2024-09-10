@@ -3,6 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CienciaController;
 
+use App\Http\Controllers\HomeController;
+
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SubcategoryController;
+use App\Http\Controllers\MaterialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,15 +20,12 @@ use App\Http\Controllers\CienciaController;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
 
 
-// Route for the index page
-Route::get('/', function () {
-    return view('index');
-});
+
+// Define a rota para a página inicial
+Route::get('/', [HomeController::class, 'index']);
+
 
 // Route for the climatologia index page
 Route::get('/ciencias', function () {
@@ -38,3 +40,27 @@ Route::get('/ciencias/climatologia', function () {
 
 //ciencias
 Route::get('/ciencias', [CienciaController::class, 'index'])->name('ciencias.index');
+
+
+
+
+
+
+Route::get('/materials', [MaterialController::class, 'index'])->name('materials.index');
+
+
+
+Route::get('/categories', [CategoryController::class, 'index']);
+Route::get('/subcategories/{id}', [SubcategoryController::class, 'show']);
+
+
+
+
+
+
+
+
+
+
+
+

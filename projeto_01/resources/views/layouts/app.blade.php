@@ -18,32 +18,7 @@
             background-color: #e9f5ec; /* Fundo verde suave */
             color: #333; /* Cor principal do texto */
         }
-        .hero-container {
-            position: relative;
-            background-image: url('https://example.com/path/to/your/image.jpg'); /* Substitua pelo caminho da sua imagem */
-            background-size: cover;
-            background-position: center;
-            color: #ffffff;
-            padding: 4rem 2rem;
-            text-align: center;
-            margin-bottom: 2rem;
-            border-radius: 0 0 10px 10px;
-            z-index: 1; /* Certifique-se de que o hero container está abaixo do header */
-        }
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.4); /* Sobreposição escura */
-            border-radius: 0 0 10px 10px;
-            z-index: 0; /* Sobreposição abaixo do conteúdo */
-        }
-        .hero-content {
-            position: relative;
-            z-index: 1; /* Garante que o conteúdo seja visível acima da sobreposição */
-        }
+
         header {
             background-color: #2f855a; /* Verde médio */
             color: #ffffff;
@@ -52,13 +27,16 @@
             z-index: 10; /* Certifica que o header está acima do conteúdo anterior */
             position: relative; /* Mantém o header no topo */
         }
+
         header .container {
             background-color: transparent; /* Removendo o fundo branco */
         }
+
         header h1 {
             margin: 0;
             font-size: 1.8rem;
         }
+
         nav ul {
             list-style: none;
             padding: 0;
@@ -67,19 +45,53 @@
             gap: 1rem;
             align-items: center;
         }
+
         nav ul li {
+            position: relative;
             transition: background-color 0.3s ease;
             border-radius: 5px;
         }
+
         nav ul li:hover {
             background-color: #38a169; /* Verde mais claro ao hover */
         }
+
         nav ul li a {
             color: #ffffff;
             text-decoration: none;
             padding: 0.5rem 1rem;
             display: block;
         }
+
+        nav ul li ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            background-color: #2f855a; /* Verde médio */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        nav ul li:hover ul {
+            display: block;
+        }
+
+        nav ul li ul li {
+            padding: 0.5rem 1rem;
+        }
+
+        nav ul li ul li a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        nav ul li ul li a:hover {
+            background-color: #38a169; /* Verde mais claro ao hover */
+        }
+
         .container {
             padding: 2rem;
             margin-bottom: 2rem;
@@ -87,44 +99,130 @@
             border-radius: 10px;
             box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
         }
-        .item-grid {
+
+        /* Estilos gerais */
+.page-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #2f855a; /* Verde escuro */
+    text-align: center;
+}
+
+.catalog-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.catalog-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #ffffff;
+    overflow: hidden;
+    width: calc(33.333% - 2rem);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.catalog-item:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+}
+
+.catalog-item-header {
+    padding: 1rem;
+    background-color: #2f855a; /* Verde escuro */
+    color: #ffffff;
+    text-align: center;
+}
+
+.catalog-item-content {
+    padding: 1rem;
+}
+
+.subcategory-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.subcategory-item {
+    margin-bottom: 0.5rem;
+}
+
+.subcategory-item a {
+    color: #2f855a; /* Verde escuro */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.subcategory-item a:hover {
+    text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .catalog-item {
+        width: calc(50% - 2rem);
+    }
+}
+
+@media (max-width: 480px) {
+    .catalog-item {
+        width: 100%;
+    }
+}
+
+
+
+
+
+        .materials-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 1.5rem;
-            justify-content: center;
+            padding: 1rem;
         }
-        .item {
-            border: 1px solid #d3e6d9; /* Borda verde clara */
+
+        .material-card {
             border-radius: 10px;
             overflow: hidden;
-            width: calc(33.333% - 1.5rem);
-            background-color: #f0faf4; /* Fundo verde muito claro */
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: calc(25% - 1.5rem);
             transition: box-shadow 0.3s ease, transform 0.3s ease;
         }
-        .item:hover {
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+
+        .material-card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             transform: translateY(-5px);
         }
-        .item img {
+
+        .material-card img {
             width: 100%;
             height: auto;
             display: block;
         }
-        .item-content {
-            padding: 1.5rem;
+
+        .material-info {
+            padding: 1rem;
             text-align: center;
         }
-        .item-content h3 {
+
+        .material-info h3 {
             margin: 0;
-            font-size: 1.4rem;
-            color: #2f855a; /* Verde médio */
+            font-size: 1.2rem;
+            color: #2f855a;
         }
-        .item-content p {
-            margin: 0.75rem 0 0;
+
+        .material-info p {
+            margin: 0.5rem 0 0;
             color: #555;
         }
+
         footer {
-            background-color: #2f855a; /* Verde médio */
+            background-color: #2f855a;
             color: #ffffff;
             text-align: center;
             padding: 1rem;
@@ -136,17 +234,28 @@
 
         /* Responsividade */
         @media (max-width: 768px) {
-            .item {
+            .catalog-item {
+                width: calc(50% - 2rem);
+            }
+
+            .material-card {
                 width: calc(50% - 1.5rem);
             }
         }
+
         @media (max-width: 480px) {
-            .item {
+            .catalog-item {
                 width: 100%;
             }
+
+            .material-card {
+                width: 100%;
+            }
+
             header h1 {
                 font-size: 1.5rem;
             }
+
             nav ul {
                 flex-direction: column;
                 gap: 0.5rem;
@@ -155,28 +264,31 @@
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>{{ config('app.name', 'Laravel') }}</h1>
-            <nav>
-                <ul>
-                    <li><a href="{{ url('/') }}">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li><a href="{{ url('/ciencias')}}">Ciências</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-   
-
+<header>
     <div class="container">
-        @yield('content')
+        <h1>{{ config('app.name', 'Laravel') }}</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url('/') }}">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+                <li>
+                    <a href="{{ url('/categories') }}">Áreas do Conhecimento</a>
+                    <ul>
+                        <li><a href="{{ url('/subcategories') }}">Matérias</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
     </div>
+</header>
 
-    <footer>
-        &copy; {{ date('Y') }} {{ config('app.name', 'Laravel') }}. All rights reserved.
-    </footer>
+<div class="container">
+    @yield('content')
+</div>
+
+<footer>
+    &copy; {{ date('Y') }} {{ config('app.name', 'Laravel') }}. All rights reserved.
+</footer>
 </body>
 </html>
