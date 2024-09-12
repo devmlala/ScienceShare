@@ -8,10 +8,11 @@ use Illuminate\Http\Request;
 class SubcategoryController extends Controller
 {
     public function show($id)
-{
-    $subcategory = Subcategory::with('materials')->findOrFail($id);
+    {
+        // Encontre a subcategoria pelo ID e carregue os materiais relacionados
+        $subcategory = SubCategory::with('materials')->findOrFail($id);
 
-    return view('subcategories.show', compact('subcategory'));
-}
-
+        // Passe a variável subcategory para a view
+        return view('subcategories.show', compact('subcategory'));
+    }
 }

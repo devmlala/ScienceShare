@@ -33,6 +33,12 @@ class Material extends Model
         return $this->belongsTo(Category::class);
     }
 
+
+    public function subcategories()
+    {
+        return $this->belongsToMany(SubCategory::class, 'material_subcategory', 'material_id', 'subcategory_id');
+    }
+
     /**
      * Relacionamento com usuário
      * 

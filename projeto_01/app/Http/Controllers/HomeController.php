@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Subcategory;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,8 +14,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $subcategories = Subcategory::with('materials')->get(); // Busca todas as subcategorias com materiais
+        $categories = Category::with('subcategories')->get(); // Busca todas as subcategorias com materiais
         
-        return view('subcategories.show', compact('subcategories'));
+        return view('home', compact('categories'));
     }
 }
