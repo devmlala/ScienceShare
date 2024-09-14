@@ -2,9 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CienciaController;
-
 use App\Http\Controllers\HomeController;
-
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\MaterialController;
@@ -20,12 +18,8 @@ use App\Http\Controllers\MaterialController;
 |
 */
 
-
-
-
 // Define a rota para a página inicial
-Route::get('/', [HomeController::class, 'index']);
-
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Route for the climatologia index page
 Route::get('/ciencias', function () {
@@ -37,27 +31,18 @@ Route::get('/ciencias/climatologia', function () {
     return view('ciencias.climatologia');
 });
 
-
 //ciencias
 Route::get('/ciencias', [CienciaController::class, 'index'])->name('ciencias.index');
 
-
-
-
-
-
+// Route for materials
 Route::get('/materials', [MaterialController::class, 'index'])->name('materials.index');
 
+// Routes for categories
+Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('categories.show');
 
-
-Route::get('/categories', [CategoryController::class, 'index']);
-Route::get('/subcategories/{id}', [SubcategoryController::class, 'show']);
-
-
-
-
-
-
+// Routes for subcategories
+Route::get('/subcategories/{id}', [SubcategoryController::class, 'show'])->name('subcategories.show');
 
 
 
