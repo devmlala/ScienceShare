@@ -10,7 +10,7 @@ class Subcategory extends Model
     use HasFactory;
 
     // Atributos que podem ser atribuídos em massa
-    protected $fillable = ['name', 'category_id', 'image_id']; // Adicionando image_id
+    protected $fillable = ['name', 'category_id', 'image_id', 'image_path']; // Adicionando image_id
 
     /**
      * Define o relacionamento muitos-para-muitos com o modelo Material.

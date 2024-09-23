@@ -14,11 +14,12 @@ class Material extends Model
 
     // Atributos que podem ser atribuídos em massa
     protected $fillable = [
-        'title', // Título do material
+        'title',
         'description',
-        'content', // Conteúdo do material
-        'category_id', // Relacionamento com categorias
-        'user_id', // Relacionamento com usuários
+        'content', // Verifique se você está usando esse campo
+        'category_id',
+        'user_id',
+        'fonte_url',
     ];
 
     /**
@@ -33,10 +34,16 @@ class Material extends Model
         return $this->belongsTo(Category::class);
     }
 
-
+    /**
+     * Relacionamento com subcategorias
+     * 
+     * Um material pode pertencer a muitas subcategorias.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function subcategories()
     {
-        return $this->belongsToMany(SubCategory::class, 'material_subcategory', 'material_id', 'subcategory_id');
+        return $this->belongsToMany(Subcategory::class, 'material_subcategory', 'material_id', 'subcategory_id');
     }
 
     /**

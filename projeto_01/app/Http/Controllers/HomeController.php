@@ -15,6 +15,7 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
+
         // Obtém o termo de busca da requisição
         $search = $request->input('search');
 
@@ -31,9 +32,13 @@ class HomeController extends Controller
         })
         ->get();
 
+
         return view('home', [
             'categories' => $categories,
             'search' => $search,
         ]);
+
+
     }
+
 }

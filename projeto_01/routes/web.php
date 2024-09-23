@@ -21,18 +21,8 @@ use App\Http\Controllers\MaterialController;
 // Define a rota para a página inicial
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// Route for the climatologia index page
-Route::get('/ciencias', function () {
-    return view('ciencias.index');
-});
-
-// Route for the climatologia page
-Route::get('/ciencias/climatologia', function () {
-    return view('ciencias.climatologia');
-});
 
 //ciencias
-Route::get('/ciencias', [CienciaController::class, 'index'])->name('ciencias.index');
 
 // Route for materials
 Route::get('/materials', [MaterialController::class, 'index'])->name('materials.index');
@@ -43,9 +33,12 @@ Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('categ
 
 // Routes for subcategories
 Route::get('/subcategories/{id}', [SubcategoryController::class, 'show'])->name('subcategories.show');
+Route::get('/subcategories', [SubcategoryController::class, 'index']);
 
 
 
-
+//FORMS
+Route::get('/materials/create',[MaterialController::class, 'create'])->name('materials.create');
+Route::post('materials', [MaterialController::class, 'store'])->name('materials.store');
 
 
