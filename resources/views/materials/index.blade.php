@@ -28,7 +28,7 @@
                         <div class="carousel-items">
                             @if ($subcategory->materials->isNotEmpty())
                                 @foreach ($subcategory->materials as $material)
-                                    <a href="{{ url('material/' . $material->id) }}" class="material-card">
+                                    <a href="{{ url('materials/' . $material->id) }}" class="material-card">
                                         <h4>{{ $material->title }}</h4>
                                         <p>{{ $material->description }}</p>
 

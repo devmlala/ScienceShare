@@ -57,4 +57,16 @@ class Material extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Relacionamento com profile
+     * 
+     * Um material pertence a um perfil.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function profile()
+    {
+        return $this->belongsTo(Profile::class);
+    }
 }

@@ -60,7 +60,6 @@
 
 
 
-
     main {
         padding: 20px;
     }
