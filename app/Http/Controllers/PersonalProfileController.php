@@ -1,95 +1,50 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Profile;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
 
 class PersonalProfileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-
-    public function main(){
-        //colocar página para acessar o perfil individual...
-    }
-    public function index()
+    // Construtor para garantir que o usuário esteja autenticado antes de acessar o perfil
+    public function __construct()
     {
-        // Corrigir 'materials' para 'material'
-        $profiles = Profile::with('material')->get(); // 'material' é o nome do relacionamento no modelo
-
-        return response()->view('personal.profile', compact('profiles'));
-    }
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $this->middleware('auth');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Display the main profile page.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
-    public function store(Request $request)
+    public function main()
     {
-        //
+        // Verifique se o usuário está autenticado
+        if (Auth::check()) {
+            // Obter o perfil do usuário logado
+            $profile = Auth::user()->profile; // ou outro relacionamento se necessário
+            return view('personal.profile-main', compact('profile'));
+        }
+
+        // Redirecionar para a página de login caso o usuário não esteja autenticado
+        return redirect()->route('login');
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Profile  $profile
-     * @return \Illuminate\Http\Response
+     * Exibe um perfil específico com base no ID
      */
-    public function show(Profile $profile)
+    public function show($id)
     {
-        //
+        $profile = Profile::with('modules')->findOrFail($id);
+
+        return view('personal.profile', compact('profile'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Profile  $profile
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Profile $profile)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Profile  $profile
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Profile $profile)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Profile  $profile
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Profile $profile)
-    {
-        //
-    }
+    // Outros métodos permanecem sem alterações até que sejam necessários
+    public function create() {}
+    public function store(Request $request) {}
+    public function edit(Profile $profile) {}
+    public function update(Request $request, Profile $profile) {}
+    public function destroy(Profile $profile) {}
 }

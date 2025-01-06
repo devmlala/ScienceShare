@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CienciaController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\MaterialController;
@@ -19,31 +17,39 @@ use App\Http\Controllers\PersonalProfileController;
 |
 */
 
-// Define a rota para a página inicial
-Route::get('/', [HomeController::class, 'index'])->name('home');
+// Página inicial
+Route::get('/', function () {
+    return view('welcome');
+});
+
+// Dashboard (somente para usuários autenticados)
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    // Rotas de categorias
+    Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
+    
+    // Subcategorias
+    Route::get('/subcategories/{categoryId}', [SubcategoryController::class, 'show'])->name('subcategories.show');
+    
+    // Materiais
+    Route::prefix('materials')->group(function () {
+        Route::get('/create', [MaterialController::class, 'create'])->name('materials.create'); // Formulário de criação de material
+        Route::get('/', [MaterialController::class, 'index'])->name('materials.index'); // Listagem de materiais
+        Route::get('/{id}', [MaterialController::class, 'show'])->name('materials.show'); // Exibição de material específico
+        Route::post('/', [MaterialController::class, 'store'])->name('materials.store'); // Armazenamento de material
+        Route::get('/{id}/download', [MaterialController::class, 'download'])->name('materials.download'); // Download de material
+    });
+});
+
+// Rota para a página principal do perfil (sem ID, ou seja, para o perfil logado)
+Route::get('/profile', [PersonalProfileController::class, 'main'])->name('personal.profile');
+
+// Rota para mostrar um perfil específico, utilizando o ID
+Route::get('/profile/{id}', [PersonalProfileController::class, 'show'])->name('profile.show');
 
 
-
-//Categories
-Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
-Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('categories.show');
-
-
-//Subcategories
-Route::get('/subcategories/{id}', [SubcategoryController::class, 'show'])->name('subcategories.show');
-Route::get('/subcategories', [SubcategoryController::class, 'index']);
-
-
-#Materials
-Route::get('/materials/create',[MaterialController::class, 'create'])->name('materials.create');
-Route::get('/materials', [MaterialController::class, 'index'])->name('materials.index');
-Route::post('materials', [MaterialController::class, 'store'])->name('materials.store');
-Route::get('/materials/download/{id}', [MaterialController::class, 'download'])->name('materials.download');
-Route::get('/materials/{id}', [MaterialController::class, 'show'])->name('material.show');
-
-
-#Perfil pessoal
-Route::get('/profile', [PersonalProfileController::class, 'main']);
-Route::get('/profile/content', [PersonalProfileController::class, 'index'])->name('profile.index');
-
-
+// Requerendo as rotas de autenticação do Breeze (login, registro, etc)
+require __DIR__.'/auth.php';

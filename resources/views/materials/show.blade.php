@@ -8,7 +8,7 @@
 
     @if ($material->fonte_url)
         <p>Fonte da imagem: {{ $material->fonte_url}}</p>
-        <img src="{{ asset($material->fonte_url) }}" alt="{{ $material->title }}">
+        <img src="{{ url($material->fonte_url) }}" alt="A imagem de {{ $material->title }} não está disponível">
     @endif
 </div>
 @endsection

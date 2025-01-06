@@ -29,37 +29,54 @@ class MaterialController extends Controller
 
 
     public function create()
-    {
-        $subcategories = Subcategory::all(); // Obter todas as subcategorias
-        return view('materials.create', compact('subcategories'));
-    }
+{
+    $subcategories = Subcategory::all(); // Obter todas as subcategorias
+    return view('materials.create', compact('subcategories'));
+}
+
 
     public function store(StoreMaterialRequest $request)
     {
-        // Criação do material
-        $material = Material::create($request->validated());
+        // Verifica se há um arquivo sendo enviado
+        if ($request->hasFile('file')) {
+            // Salva o arquivo na pasta 'materials' no armazenamento local (storage/app/public/materials)
+            $filePath = $request->file('file')->store('materials', 'public');
+            $requestData = $request->validated();
+            $requestData['fonte_url'] = $filePath; // Salva o caminho do arquivo na coluna 'fonte_url'
+        } else {
+            $requestData = $request->validated();
+        }
 
-        // Associar subcategorias ao material
-        $material->subcategories()->attach($request->subcategories);
+        // Criação do material
+        $material = Material::create($requestData);
+
+        // Associar subcategorias ao material, se existirem
+        if ($request->has('subcategories')) {
+            $material->subcategories()->attach($request->subcategories);
+        }
 
         return redirect()->route('materials.create')->with('success', 'Material adicionado com sucesso!');
     }
 
 
 
+
+
     public function download($id)
-    {
-        $material = Material::findOrFail($id);
+{
+    $material = Material::findOrFail($id);
 
-        // Substitua "path_to_pdf" pelo campo que armazena o caminho do PDF no banco de dados
-        $pathToFile = storage_path('app/public/' . $material->path_to_pdf);
+    // Use 'fonte_url' como o campo que armazena o caminho do arquivo
+    $pathToFile = storage_path('app/public/' . $material->fonte_url);
 
-        if (file_exists($pathToFile)) {
-            return response()->download($pathToFile);
-        } else {
-            return back()->with('error', 'Arquivo não encontrado.');
-        }
+    if (file_exists($pathToFile)) {
+        return response()->download($pathToFile);
+    } else {
+        return back()->with('error', 'Arquivo não encontrado.');
     }
+}
+
+
 
 
 

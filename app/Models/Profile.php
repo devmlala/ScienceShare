@@ -15,16 +15,20 @@ class Profile extends Model
      * @var array
      */
     protected $fillable = [
-        'name', // Inclua o nome ou outros atributos adicionais
-        'material_id',
+        'name',
     ];
 
     /**
-     * Definir o relacionamento com a model Material.
-     * Um Profile pertence a um Material.
+     * Definir o relacionamento de muitos-para-muitos com a model Material.
      */
-    public function material()
+    public function materials()
     {
-        return $this->belongsTo(Material::class);
+        return $this->belongsToMany(Material::class, 'material_profile', 'profile_id', 'material_id')
+                    ->withTimestamps(); // Inclui timestamps no relacionamento
+    }
+
+    public function modules()
+    {
+        return $this->hasMany(Module::class);
     }
 }

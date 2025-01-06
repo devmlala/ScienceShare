@@ -59,14 +59,14 @@ class Material extends Model
     }
 
     /**
-     * Relacionamento com profile
+     * Relacionamento com perfis
      * 
-     * Um material pertence a um perfil.
+     * Um material pode pertencer a muitos perfis.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function profile()
+    public function profiles()
     {
-        return $this->belongsTo(Profile::class);
+        return $this->belongsToMany(Profile::class, 'material_profile', 'material_id', 'profile_id');
     }
 }

@@ -10,7 +10,11 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <form action="{{ route('materials.store') }}" method="POST">
+    @if(session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
+
+    <form action="{{ route('materials.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="form-group">
@@ -24,8 +28,13 @@
         </div>
 
         <div class="form-group">
-            <label for="content">Conteúdo (URL ou arquivo):</label>
-            <input type="text" id="content" name="content" class="form-control" required>
+            <label for="fonte_url">Fonte (URL):</label>
+            <input type="text" id="fonte_url" name="fonte_url" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="file">Upload de Arquivo:</label>
+            <input type="file" id="file" name="file" class="form-control">
         </div>
 
         <div class="form-group">
