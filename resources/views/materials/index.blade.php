@@ -10,7 +10,7 @@
 
         <!-- Botão com link para /material/create -->
         <a href="/materials/create" class="create-material-btn">
-            <button class="create-material-btn">Criar Material</button>
+            <button class="create-material-btn">Inserir Material</button>
         </a>
     </div>
 

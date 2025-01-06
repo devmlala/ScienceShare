@@ -5,7 +5,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\PersonalProfileController;
-
+use App\Http\Controllers\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,10 +23,13 @@ Route::get('/', function () {
 });
 
 // Dashboard (somente para usuários autenticados)
-Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::middleware(['auth'])->group(function () {
+        // Substituindo a função anônima pela chamada ao controlador
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        
+        // Outras rotas do seu projeto...
+    });
+    
 
     // Rotas de categorias
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
@@ -42,7 +45,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/', [MaterialController::class, 'store'])->name('materials.store'); // Armazenamento de material
         Route::get('/{id}/download', [MaterialController::class, 'download'])->name('materials.download'); // Download de material
     });
-});
+
 
 // Rota para a página principal do perfil (sem ID, ou seja, para o perfil logado)
 Route::get('/profile', [PersonalProfileController::class, 'main'])->name('personal.profile');

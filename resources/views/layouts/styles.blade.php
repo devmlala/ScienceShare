@@ -6,8 +6,10 @@
     /* Corpo da página */
     body {
         font-family: 'Roboto', sans-serif;
-        background-color: #141414; /* Fundo escuro */
-        color: #fff; /* Texto branco */
+        background-color: #141414;
+        /* Fundo escuro */
+        color: #fff;
+        /* Texto branco */
         margin: 0;
         padding: 0;
     }
@@ -38,7 +40,8 @@
     }
 
     header nav ul li a:hover {
-        color: #1db954; /* Cor verde para links no cabeçalho */
+        color: #1db954;
+        /* Cor verde para links no cabeçalho */
     }
 
     /* Imagem GIF no cabeçalho */
@@ -96,6 +99,21 @@
         color: #fff;
         padding: 15px 0;
     }
+
+    .image-container {
+        width: 300px;
+        height: 200px;
+        overflow: hidden;
+        /* Esconde qualquer parte da imagem que ultrapasse os limites do contêiner */
+    }
+
+    .image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        /* Ajusta a imagem para cobrir o contêiner sem distorcer */
+    }
+
 
     /* Controles do carrossel */
     .carousel-control {
@@ -177,10 +195,11 @@
             width: 90%;
         }
 
-        .auth-form input, .auth-form button {
+        .auth-form input,
+        .auth-form button {
             width: 100%;
         }
     }
 </style>
 
-@stack('styles') <!-- Permite adicionar estilos customizados em views específicas -->      
+@stack('styles') <!-- Permite adicionar estilos customizados em views específicas -->
