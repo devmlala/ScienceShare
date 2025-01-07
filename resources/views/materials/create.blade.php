@@ -42,7 +42,8 @@
             <div class="subcategory-checkboxes">
                 @foreach ($subcategories as $subcategory)
                     <div class="form-check">
-                        <input type="checkbox" id="subcategory{{ $subcategory->id }}" name="subcategories[]" value="{{ $subcategory->id }}" class="form-check-input">
+                        <input type="checkbox" id="subcategory{{ $subcategory->id }}" name="subcategories[]" value="{{ $subcategory->id }}" class="form-check-input"
+                        @if(in_array($subcategory->id, old('subcategories', []))) checked @endif>
                         <label for="subcategory{{ $subcategory->id }}" class="form-check-label">{{ $subcategory->name }}</label>
                     </div>
                 @endforeach
@@ -95,12 +96,14 @@
         display: flex;
         flex-wrap: wrap;
         gap: 15px;
+        justify-content: flex-start; /* Garante que as checkboxes fiquem à esquerda */
     }
 
     .form-check {
         flex: 1 1 30%;
         display: flex;
         align-items: center;
+        margin-bottom: 10px; /* Adiciona espaçamento entre as checkboxes */
     }
 
     .form-check-input {

@@ -16,9 +16,9 @@ class StoreMaterialRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'fonte_url' => 'nullable|url',
-            'subcategories' => 'required|array',
-            'subcategories.*' => 'exists:subcategories,id', // Validar cada subcategoria
+            'fonte_url' => 'nullable|string', // Modificado para string, pois estamos lidando com o caminho do arquivo
+            'subcategories' => 'nullable|array', // Tornar não obrigatório caso não haja subcategorias
+            'subcategories.*' => 'exists:subcategories,id', // Validar se as subcategorias existem no banco
         ];
     }
 
@@ -27,8 +27,9 @@ class StoreMaterialRequest extends FormRequest
         return [
             'title.required' => 'O título é obrigatório.',
             'description.required' => 'A descrição é obrigatória.',
-            'fonte_url.url' => 'A URL deve ser um link válido.',
+            'fonte_url.string' => 'O caminho do arquivo deve ser uma string válida.',
             'subcategories.required' => 'Você deve selecionar ao menos uma subcategoria.',
+            'subcategories.*.exists' => 'A subcategoria selecionada não existe.',
         ];
     }
 }
