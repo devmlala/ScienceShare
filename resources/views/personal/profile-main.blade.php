@@ -28,29 +28,34 @@
         </div>
 
         <div class="materials-section">
+            @if ($materials->isNotEmpty())
             <h3>Seus Materiais</h3>
-            <div class="material-carousel-wrapper">
-                <button class="carousel-control prev">&#9664;</button>
-                <div class="material-carousel">
-                    <div class="carousel-items">
-                        @foreach ($materials as $material)
-                            <a href="{{ url('materials/' . $material->id) }}" class="material-card">
-                                <h4>{{ $material->title }}</h4>
-                                <p>{{ $material->description }}</p>
-                                @if ($material->fonte_url)
-                                    <div class="material-image-wrapper">
-                                        <img src="{{ $material->fonte_url }}" alt="{{ $material->title }}"
-                                            class="material-image">
-                                    </div>
-                                @else
-                                    <p>Imagem não disponível</p>
-                                @endif
-                            </a>
-                        @endforeach
+                <div class="material-carousel-wrapper">
+                    <button class="carousel-control prev">&#9664;</button>
+                    <div class="material-carousel">
+                        <div class="carousel-items">
+                            @foreach ($materials as $material)
+                                <a href="{{ url('materials/' . $material->id) }}" class="material-card">
+                                    <h4>{{ $material->title }}</h4>
+                                    <p>{{ $material->description }}</p>
+                                    @if ($material->fonte_url)
+                                        <div class="material-image-wrapper">
+                                            <img src="{{ $material->fonte_url }}" alt="{{ $material->title }}"
+                                                class="material-image">
+                                        </div>
+                                    @else
+                                        <p>Imagem não disponível</p>
+                                    @endif
+                                </a>
+                            @endforeach
+                        </div>
                     </div>
+                    <button class="carousel-control next">&#9654;</button>
                 </div>
-                <button class="carousel-control next">&#9654;</button>
-            </div>
+            @else
+                <p>Este perfil ainda não tem materiais associados.</p>
+            @endif
+
         </div>
     </div>
 </div>
